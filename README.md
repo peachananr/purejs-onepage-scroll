@@ -16,6 +16,9 @@ License: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/l
 ##Looking for jQuery version?
 [jQuery Version](http://www.thepetedesign.com/demos/onepage_scroll_demo.html)
 
+##Looking for Zepto JS version?
+[Zepto Js Version](http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html)
+
 ## Compatibility
 Modern browsers such as Chrome, Firefox, and Safari on both desktop and smartphones have been tested. Not tested on IE.
 
@@ -110,6 +113,7 @@ If you want to see more of my plugins, visit [The Pete Design](http://www.thepet
 
 ## Other Resources
 - [jQuery Version](http://www.thepetedesign.com/demos/onepage_scroll_demo.html)
+- [Zepto Js Version](http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html)
 - [OnePageScroll.js: Creating an Apple’s iPhone 5S Website](http://www.onextrapixel.com/2013/09/18/onepagescroll-js-creating-an-apples-iphone-5s-website/)
 - [Eike Send's jQuery Swipe Events](https://github.com/eikes/jquery.swipe-events.js)
 - [CSS Easing generator by Matthew Lein](http://matthewlein.com/ceaser/)
