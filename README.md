@@ -13,7 +13,7 @@ License: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/l
 ## Demo
 [View demo](http://www.thepetedesign.com/demos/purejs_onepage_scroll_demo.html)
 
-#Looking for jQuery version?
+##Looking for jQuery version?
 [jQuery Version](http://www.thepetedesign.com/demos/onepage_scroll_demo.html)
 
 ## Compatibility
