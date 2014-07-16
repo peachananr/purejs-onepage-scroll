@@ -470,16 +470,19 @@ function onePageScroll(element, options) {
 		  var next_index = next.dataset.index;
 			_removeClass(current, "active");
 			_addClass(next, "active");
-			_removeClass(document.querySelector(".onepage-pagination li a" + ".active"), "active");
-			_addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + (page_index) + "']"), "active");
-
+			
+			if(settings.pagination == true) {
+				_removeClass(document.querySelector(".onepage-pagination li a" + ".active"), "active");
+				_addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + (page_index) + "']"), "active");
+			}
+			
 			body.className = body.className.replace(/\bviewing-page-\d.*?\b/g, '');
 			_addClass(body, "viewing-page-"+ next_index);
 
 			pos = ((page_index - 1) * 100) * -1;
 
 			if (history.replaceState && settings.updateURL == true) {
-				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (parseInt(page_index) - 1);
+				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (parseInt(page_index));
 				history.pushState( {}, document.title, href );
 			}
 			_transformPage(el5, settings, pos, page_index, next);
