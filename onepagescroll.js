@@ -9,13 +9,13 @@
  *
  * Credit: Eike Send for the awesome swipe event
  * https://github.com/peachananr/purejs-onepage-scroll
- * 
+ *
  * License: GPL v3
  *
  * ========================================================== */
-	
+
 function onePageScroll(element, options) {
-  
+
   var defaults = {
 	    	sectionContainer: "section",
 	    	easing: "ease",
@@ -39,25 +39,25 @@ function onePageScroll(element, options) {
 	    quietPeriod = 500,
 	    paginationList = "",
 	    body = document.querySelector("body");
-  
-  this.init = function() { 
+
+  this.init = function() {
     /*-------------------------------------------*/
     /*  Prepare Everything                       */
     /*-------------------------------------------*/
-    
+
   	_addClass(el, "onepage-wrapper")
   	el.style.position = "relative";
-    
+
   	for( var i = 0; i < sections.length; i++){
   	  _addClass(sections[i], "ops-section")
   	  sections[i].dataset.index = i + 1;
   	  topPos = topPos + 100;
-    
+
   	  if(settings.pagination == true) {
   			paginationList += "<li><a data-index='" + (i + 1) + "' href='#" + (i + 1) + "'></a></li>";
   		}
     }
-    
+
   	_swipeEvents(el);
   	document.addEventListener("swipeDown",  function(event){
   	  if (!_hasClass(body, "disabled-onepage-scroll")) event.preventDefault();
@@ -67,32 +67,32 @@ function onePageScroll(element, options) {
   		if (!_hasClass(body, "disabled-onepage-scroll")) event.preventDefault();
   		moveDown(el);
   	});
-    
+
   	// Create Pagination and Display Them
-    
+
   	if(settings.pagination == true) {
   	  var pagination = document.createElement("ul");
   	  pagination.setAttribute("class", "onepage-pagination");
-    
+
   	  body.appendChild(pagination)
   		pagination.innerHTML = paginationList;
   		var posTop = (document.querySelector(".onepage-pagination").offsetHeight / 2) * -1;
   		document.querySelector(".onepage-pagination").style.marginTop = posTop;
   	}
-    
+
   	if(window.location.hash != "" && window.location.hash != "#1") {
   		var init_index =  window.location.hash.replace("#", ""),
   		    next = document.querySelector(settings.sectionContainer + "[data-index='" + (init_index) + "']"),
   		    next_index = next.dataset.index;
-    
+
   		_addClass( document.querySelector(settings.sectionContainer + "[data-index='" + init_index + "']") ,"active")
   		_addClass(body, "viewing-page-"+ init_index)
   		if(settings.pagination == true) _addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + init_index + "']"), "active");
-    
+
   		if(next) {
   			_addClass(next, "active")
   			if(settings.pagination == true) _addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + init_index + "']"), "active");
-    
+
   			body.className = body.className.replace(/\bviewing-page-\d.*?\b/g, '');
   			_addClass(body, "viewing-page-" + next_index)
   			if (history.replaceState && settings.updateURL == true) {
@@ -102,48 +102,48 @@ function onePageScroll(element, options) {
   		}
   		var pos = ((init_index - 1) * 100) * -1;
   		_transformPage(el, settings, pos, init_index);
-    
+
   	}else{
   	  _addClass(document.querySelector(settings.sectionContainer + "[data-index='1']"), "active");
   	  _addClass(body, "viewing-page-1");
   		if(settings.pagination == true) _addClass(document.querySelector(".onepage-pagination li a[data-index='1']"), "active");
   	}
-    
+
   	_paginationHandler = function() {
       var page_index = this.dataset.index;
   		moveTo(el, page_index);
   	}
-    
-    
+
+
   	if(settings.pagination == true)  {
   	  var pagination_links = document.querySelectorAll(".onepage-pagination li a");
-    
+
   	  for( var i = 0; i < pagination_links.length; i++){
     	  pagination_links[i].addEventListener('click', _paginationHandler);
       }
   	}
-    
+
   	_mouseWheelHandler = function(event) {
   		event.preventDefault();
   		var delta = event.wheelDelta || -event.detail;
   		if (!_hasClass(body, "disabled-onepage-scroll")) _init_scroll(event, delta);
   	}
-    
+
   	document.addEventListener('mousewheel', _mouseWheelHandler);
   	document.addEventListener('DOMMouseScroll', _mouseWheelHandler);
-    
-    
+
+
   	if(settings.responsiveFallback != false) {
   	  window.onresize = function(){
   			_responsive();
   		}
-    
+
   		_responsive();
   	}
-    
+
     _keydownHandler = function(e) {
   		var tag = e.target.tagName.toLowerCase();
-    
+
   		if (!_hasClass(body, "disabled-onepage-scroll")) {
   			switch(e.which) {
   				case 38:
@@ -157,13 +157,13 @@ function onePageScroll(element, options) {
   		}
   		return false;
   	}
-    
+
   	if(settings.keyboard == true) {
   		document.onkeydown = _keydownHandler;
   	}
   	return false;
   }
-  
+
   /*-------------------------------------------------------*/
   /*  Private Functions                                    */
   /*-------------------------------------------------------*/
@@ -173,9 +173,9 @@ function onePageScroll(element, options) {
   _swipeEvents = function(el){
   	var startX,
   		startY;
-  
-    document.addEventListener("touchstart", touchstart);  
-  
+
+    document.addEventListener("touchstart", touchstart);
+
   	function touchstart(event) {
   		var touches = event.touches;
   		if (touches && touches.length) {
@@ -184,14 +184,14 @@ function onePageScroll(element, options) {
   			document.addEventListener("touchmove", touchmove);
   		}
   	}
-  
+
   	function touchmove(event) {
   		var touches = event.touches;
   		if (touches && touches.length) {
   		  event.preventDefault();
   			var deltaX = startX - touches[0].pageX;
   			var deltaY = startY - touches[0].pageY;
-  
+
   			if (deltaX >= 50) {
   			  var event = new Event('swipeLeft');
   			  document.dispatchEvent(event);
@@ -208,13 +208,13 @@ function onePageScroll(element, options) {
   			  var event = new Event('swipeDown');
   			  document.dispatchEvent(event);
   			}
-  
+
   			if (Math.abs(deltaX) >= 50 || Math.abs(deltaY) >= 50) {
   				document.removeEventListener('touchmove', touchmove);
   			}
   		}
   	}
-  
+
   };
   /*-----------------------------------------------------------*/
 	/*  Utility to add/remove class easily with javascript       */
@@ -281,52 +281,52 @@ function onePageScroll(element, options) {
         _scrollTo(element, to, duration - 10);
     }, 10);
   }
-  
-  
-     
+
+
+
   /*---------------------------------*/
   /*  Function to transform the page */
   /*---------------------------------*/
-  
+
   _transformPage = function(el2, settings, pos, index, next_el) {
     if (typeof settings.beforeMove == 'function') settings.beforeMove(index, next_el);
-    
+
     var transformCSS = "-webkit-transform: translate3d(0, " + pos + "%, 0); -webkit-transition: -webkit-transform " + settings.animationTime + "ms " + settings.easing + "; -moz-transform: translate3d(0, " + pos + "%, 0); -moz-transition: -moz-transform " + settings.animationTime + "ms " + settings.easing + "; -ms-transform: translate3d(0, " + pos + "%, 0); -ms-transition: -ms-transform " + settings.animationTime + "ms " + settings.easing + "; transform: translate3d(0, " + pos + "%, 0); transition: transform " + settings.animationTime + "ms " + settings.easing + ";";
-    
+
     el2.style.cssText = transformCSS;
-    
+
     var transitionEnd = _whichTransitionEvent();
      el2.addEventListener(transitionEnd, endAnimation, false);
-    
+
     function endAnimation() {
       if (typeof settings.afterMove == 'function') settings.afterMove(index, next_el);
       el2.removeEventListener(transitionEnd, endAnimation)
     }
   }
-  
+
   /*-------------------------------------------*/
   /*  Responsive Fallback trigger              */
   /*-------------------------------------------*/
-  
+
   _responsive = function() {
 
 		if (document.body.clientWidth < settings.responsiveFallback) {
-			
+
 			_addClass(body, "disabled-onepage-scroll");
 			document.removeEventListener('mousewheel', _mouseWheelHandler);
 			document.removeEventListener('DOMMouseScroll', _mouseWheelHandler);
 			_swipeEvents(el);
 			document.removeEventListener("swipeDown");
 			document.removeEventListener("swipeUp");
-			
+
 		} else {
-		  
+
 		  if (_hasClass(body, "disabled-onepage-scroll")) {
 		    _removeClass(body, "disabled-onepage-scroll");
 		    _scrollTo(document.documentElement, 0, 2000);
 	    }
-      
-      
+
+
 
 			_swipeEvents(el);
 			document.addEventListener("swipeDown",  function(event){
@@ -337,21 +337,21 @@ function onePageScroll(element, options) {
 				if (!_hasClass(body, "disabled-onepage-scroll")) event.preventDefault();
 				moveDown(el);
 			});
-      
+
       document.addEventListener('mousewheel', _mouseWheelHandler);
   		document.addEventListener('DOMMouseScroll', _mouseWheelHandler);
-			
+
 		}
 	}
-	
+
 	/*-------------------------------------------*/
   /*  Initialize scroll detection              */
   /*-------------------------------------------*/
-  
+
   _init_scroll = function(event, delta) {
 		var deltaOfInterest = delta,
 			timeNow = new Date().getTime();
-			
+
 		// Cancel scroll if currently animating or within quiet period
 		if(timeNow - lastAnimation < quietPeriod + settings.animationTime) {
 			event.preventDefault();
@@ -363,28 +363,28 @@ function onePageScroll(element, options) {
 		} else {
 			moveUp(el)
 		}
-		
+
 		lastAnimation = timeNow;
 	}
-   
-  
+
+
   /*-------------------------------------------------------*/
   /*  Public Functions                                     */
   /*-------------------------------------------------------*/
-  
+
   /*---------------------------------*/
   /*  Function to move down section  */
   /*---------------------------------*/
-  
+
    this.moveDown = function(el3) {
-    
+
     if (typeof el3 == "string") el3 = document.querySelector(el3);
-    
+
     var index = document.querySelector(settings.sectionContainer +".active").dataset.index,
 		    current = document.querySelector(settings.sectionContainer + "[data-index='" + index + "']"),
 		    next = document.querySelector(settings.sectionContainer + "[data-index='" + (parseInt(index) + 1) + "']");
-		    
-		    
+
+
 		if(!next) {
 			if (settings.loop == true) {
 				pos = 0;
@@ -399,7 +399,7 @@ function onePageScroll(element, options) {
 		var next_index = next.dataset.index;
 		_removeClass(current, "active");
 		_addClass(next, "active");
-		
+
 		if(settings.pagination == true) {
 		  _removeClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + index + "']"), "active");
 		  _addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + next_index + "']"), "active");
@@ -414,15 +414,15 @@ function onePageScroll(element, options) {
 		}
 		_transformPage(el3, settings, pos, next_index, next);
 	}
-	
+
 	/*---------------------------------*/
   /*  Function to move up section    */
   /*---------------------------------*/
-	
+
 	this.moveUp = function(el4) {
-	  
+
 	  if (typeof el4 == "string") el4 = document.querySelector(el4);
-	  
+
 	  var index = document.querySelector(settings.sectionContainer +".active").dataset.index,
 		    current = document.querySelector(settings.sectionContainer + "[data-index='" + index + "']"),
 		    next = document.querySelector(settings.sectionContainer + "[data-index='" + (parseInt(index) - 1) + "']");
@@ -440,7 +440,7 @@ function onePageScroll(element, options) {
 		var next_index = next.dataset.index;
 		_removeClass(current, "active")
 		_addClass(next, "active")
-		
+
 		if(settings.pagination == true) {
 		  _removeClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + index + "']"), "active");
 		  _addClass(document.querySelector(".onepage-pagination li a" + "[data-index='" + next_index + "']"), "active");
@@ -454,18 +454,18 @@ function onePageScroll(element, options) {
 		}
 		_transformPage(el4, settings, pos, next_index, next);
 	}
-  
+
   /*-------------------------------------------*/
   /*  Function to move to specified section    */
   /*-------------------------------------------*/
-  
+
   this.moveTo = function(el5, page_index) {
-    
+
     if (typeof el5 == "string") el5 = document.querySelector(el5);
-    
+
 		var current = document.querySelector(settings.sectionContainer + ".active"),
 		    next = document.querySelector(settings.sectionContainer + "[data-index='" + (page_index) + "']");
-		    
+
 		if(next) {
 		  var next_index = next.dataset.index;
 			_removeClass(current, "active");
@@ -485,42 +485,41 @@ function onePageScroll(element, options) {
 			_transformPage(el5, settings, pos, page_index, next);
 		}
 	}
-	
   this.init();
 }
 
 /*------------------------------------------------*/
- /*  Ulitilities Method                            */
- /*------------------------------------------------*/
- 
- /*-----------------------------------------------------------*/
- /*  Function by John Resig to replicate extend functionality */
- /*-----------------------------------------------------------*/
- 
- Object.extend = function(orig){
-   if ( orig == null )
-     return orig;
- 
-   for ( var i = 1; i < arguments.length; i++ ) {
-     var obj = arguments[i];
-     if ( obj != null ) {
-       for ( var prop in obj ) {
-         var getter = obj.__lookupGetter__( prop ),
-             setter = obj.__lookupSetter__( prop );
- 
-         if ( getter || setter ) {
-           if ( getter )
-             orig.__defineGetter__( prop, getter );
-           if ( setter )
-             orig.__defineSetter__( prop, setter );
-         } else {
-           orig[ prop ] = obj[ prop ];
-         }
-       }
-     }
-   }
- 
-   return orig;
- };
-	
+/*  Ulitilities Method                            */
+/*------------------------------------------------*/
+
+/*-----------------------------------------------------------*/
+/*  Function by John Resig to replicate extend functionality */
+/*-----------------------------------------------------------*/
+
+Object.extend = function(orig){
+	if ( orig == null )
+		return orig;
+
+	for ( var i = 1; i < arguments.length; i++ ) {
+		var obj = arguments[i];
+		if ( obj != null ) {
+			for ( var prop in obj ) {
+				var getter = obj.__lookupGetter__( prop ),
+						setter = obj.__lookupSetter__( prop );
+
+				if ( getter || setter ) {
+					if ( getter )
+						orig.__defineGetter__( prop, getter );
+					if ( setter )
+						orig.__defineSetter__( prop, setter );
+				} else {
+					orig[ prop ] = obj[ prop ];
+				}
+			}
+		}
+	}
+
+	return orig;
+};
+
 
