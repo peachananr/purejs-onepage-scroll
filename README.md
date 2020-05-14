@@ -1,5 +1,5 @@
 #Pure JS One Page Scroll by Pete R.
-Pure JS One Page Scroll is a javascript version of [One Page Scroll](https://github.com/peachananr/onepage-scroll). The plugin will let you create an Apple-like one page scroll website (iPhone 5S website) **without replying on jQuery**.
+Pure JS One Page Scroll is a javascript version of [One Page Scroll](https://github.com/peachananr/onepage-scroll). The plugin will let you create an Apple-like one page scroll website (iPhone 5S website) **without relying on jQuery**.
 
 Created by [Pete R.](http://www.thepetedesign.com), Founder of [BucketListly](http://www.bucketlistly.com)
 
