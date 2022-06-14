@@ -81,9 +81,11 @@ function onePageScroll(element, options) {
   	}
     
   	if(window.location.hash != "" && window.location.hash != "#1") {
-  		var init_index =  window.location.hash.replace("#", ""),
-  		    next = document.querySelector(settings.sectionContainer + "[data-index='" + (init_index) + "']"),
-  		    next_index = next.dataset.index;
+  		var init_index =  window.location.hash.replace("#", "");
+            if (!document.querySelector(settings.sectionContainer + "[data-index='" + (init_index) + "']"))
+                init_index = 1;
+            var next = document.querySelector(settings.sectionContainer + "[data-index='" + (init_index) + "']"),
+                    next_index = next.dataset.index;
     
   		_addClass( document.querySelector(settings.sectionContainer + "[data-index='" + init_index + "']") ,"active")
   		_addClass(body, "viewing-page-"+ init_index)
