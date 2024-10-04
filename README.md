@@ -5,13 +5,12 @@ Created by [Pete R.](http://www.thepetedesign.com), Founder of [BucketListly](ht
 
 License: [Attribution-ShareAlike 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/deed.en_US)
 
-[![One Page Scroll](http://www.thepetedesign.com/images/purejs_onepage_scroll_image.png "One Page Scroll")](http://www.thepetedesign.com/demos/purejs_onepage_scroll_demo.html)
 
 ## Requirement
 **NONE! No more jQuery!**
 
 ## Demo
-[View demo](http://www.thepetedesign.com/demos/purejs_onepage_scroll_demo.html)
+[View demo](http://peachananr.github.io/purejs-onepage-scroll/demo/purejs_onepage_scroll_demo.html)
 
 ## Looking for jQuery version?
 [jQuery Version](http://www.thepetedesign.com/demos/onepage_scroll_demo.html)
